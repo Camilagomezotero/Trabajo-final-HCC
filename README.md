@@ -1,4 +1,4 @@
-Animación curvas de velocidad radial y órbitas de un sistema binario
+# Animación curvas de velocidad radial y órbitas de un sistema binario
 
 Este proyecto simula un sistema binario utilizando VPython, donde dos estrellas 
  orbitan alrededor de su centro de masa común. 
@@ -28,11 +28,12 @@ git clone https://github.com/Camilagomezotero/Trabajo%20final%20HCC.git
 # Navegar al directorio del proyecto
 cd 'Trabajo final HCC'
 ```
-
+```bash
 # Instalar las dependencias
 pip install -r Requirements.txt
+```
 
 #Contacto
-Nombre: Gómez Otero Camila y López Carla
-Email: gomezoteroc@gmail.com 
-Email: carla.lopez.9594@gmail.com
+-Autores: Gómez Otero Camila y López Carla
+-Email: gomezoteroc@gmail.com 
+-Email: carla.lopez.9594@gmail.com
