@@ -33,7 +33,8 @@ cd 'Trabajo final HCC'
 pip install -r Requirements.txt
 ```
 
-#Contacto
--Autores: Gómez Otero Camila y López Carla
--Email: gomezoteroc@gmail.com 
--Email: carla.lopez.9594@gmail.com
+## Contacto
+
+- Autores: Gómez Otero Camila y López Carla
+- Email: gomezoteroc@gmail.com 
+- Email: carla.lopez.9594@gmail.com
