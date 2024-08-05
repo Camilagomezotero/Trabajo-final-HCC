@@ -113,16 +113,28 @@ def cerrar_terminal():
 # Crear un botón que llama a la función cerrar_terminal
 button(text="Cerrar programa", bind=cerrar_terminal)
 
+# Función para ajustar el retain según el tamaño de la órbita
+def calcular_retain(tamano_orbita):
+    base_retain = 1000  # Base del retain para órbitas pequeñas
+    factor_retain = 5000  # Factor de escala para órbitas grandes
+    retain_value = int(base_retain + factor_retain * tamano_orbita)
+    return retain_value
+
+# Ajustar el valor de retain según el tamaño de la órbita
+tamano_orbita = a / 1e11  # Escalar el tamaño de la órbita para ajustar retain
+retain_value = calcular_retain(tamano_orbita)
+
+
 
 #Definimos la estrella primaria
 est1 = sphere(canvas=c1,pos=vector(r1,0,0), radius=radioSegunMasa(M1), color=color.magenta, 
-                make_trail=True,  interval=5, retain=200)
+                make_trail=True,  interval=5, retain=retain_value)
 est1.mass = M1*1.988e30 #Pasamos la masa a kg
 est1.p = vector(0, v1, 0) * est1.mass #Momento lineal primaria
 
 #Definimos la estrella secundaria
 est2 = sphere(canvas=c1,pos=vector(-r2,0,0), radius=radioSegunMasa(M2), color=color.green,
-                make_trail=True, interval=5, retain=200)
+                make_trail=True, interval=5, retain=retain_value)
 est2.mass = M2*1.988e30 #Pasamos la masa a kg
 est2.p = vector(0, -v2, 0) * est2.mass #Momento lineal secundaria
 
@@ -171,8 +183,18 @@ vr1_curve = gcurve(color=color.magenta,graph=vr1_graph,
 vr2_curve = gcurve(color=color.green,graph=vr2_graph,
                    label='Estrella secundaria' if M1>M2 else 'Estrella primaria')
 
+# Función para ajustar el rate según el tamaño de la órbita
+def calcular_rate(tamano_orbita):
+    base_rate = 30  # Base del rate para órbitas pequeñas
+    factor_rate = 500  # Factor de escala para órbitas grandes
+    max_rate = 300  # Limitar el rate máximo para evitar problemas de rendimiento
+    
+    rate_value = int(base_rate + factor_rate * tamano_orbita)
+    rate_value = min(rate_value, max_rate)
+    
+    return rate_value
 
-
+rate_value = calcular_rate(tamano_orbita)
 
 
 #Utilizamos el método Euler-Cromer para armar la animación
@@ -186,7 +208,7 @@ dy = 0.01
 dt = 1e3 #paso
 t=0
 while True:
-    rate(150)
+    rate(rate_value)
     if running:
         r = est2.pos-est1.pos
         rmag = mag(r)
