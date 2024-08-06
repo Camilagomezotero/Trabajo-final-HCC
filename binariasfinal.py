@@ -90,28 +90,6 @@ def radioSegunMasa(m:float):
     return rad*6.957e8
 
 
-#Creamos un botón para pausar la animación
-running = True
-def Run(b): # b = botón
-    global running, remember_dt, dt
-    running = not running
-    if running:
-        b.text = "Pausa"
-        dt = remember_dt
-    else: 
-        b.text = "Iniciar"
-        remember_dt = dt
-        dt = 0
-    return
-
-button(text="Pausa", bind=Run)
-
-# Función para cerrar la terminal
-def cerrar_terminal():
-    os._exit(0)
-
-# Crear un botón que llama a la función cerrar_terminal
-button(text="Cerrar programa", bind=cerrar_terminal)
 
 # Función para ajustar el retain según el tamaño de la órbita
 def calcular_retain(tamano_orbita):
@@ -129,14 +107,14 @@ retain_value = calcular_retain(tamano_orbita)
 #Definimos la estrella primaria
 est1 = sphere(canvas=c1,pos=vector(r1,0,0), radius=radioSegunMasa(M1), color=color.magenta, 
                 make_trail=True,  interval=5, retain=retain_value)
-est1.mass = M1*1.988e30 #Pasamos la masa a kg
-est1.p = vector(0, v1, 0) * est1.mass #Momento lineal primaria
+est1.masa = M1*1.988e30 #Pasamos la masa a kg
+est1.p = vector(0, v1, 0) * est1.masa #Momento lineal primaria
 
 #Definimos la estrella secundaria
 est2 = sphere(canvas=c1,pos=vector(-r2,0,0), radius=radioSegunMasa(M2), color=color.green,
                 make_trail=True, interval=5, retain=retain_value)
-est2.mass = M2*1.988e30 #Pasamos la masa a kg
-est2.p = vector(0, -v2, 0) * est2.mass #Momento lineal secundaria
+est2.masa = M2*1.988e30 #Pasamos la masa a kg
+est2.p = vector(0, -v2, 0) * est2.masa #Momento lineal secundaria
 
 #Agregamos las correspondientes descripciones 
 label1=label(pos=vec(r1, 0, 0), text='primaria'if M1>M2 else 'secundaria', xoffset=20, yoffset=50, space=30, 
@@ -148,11 +126,11 @@ label2=label(pos=vec(-r2, 0, 0), text='secundaria' if M1>M2 else 'primaria', xof
 #Calculamos las energías:
 
 #Energía cinética:
-Ec =  0.5*est1.mass*v1**2+0.5*est2.mass*v2**2
+Ec =  0.5*est1.masa*v1**2+0.5*est2.masa*v2**2
 print('La energía cinetica es',Ec)
 
 #Energía potencial:
-Ep = - G*est1.mass*est2.mass/(mag(est1.pos-est2.pos))
+Ep = - G*est1.masa*est2.masa/(mag(est1.pos-est2.pos))
 print('La energía potencial es',Ep)
 
 #Energía total:
@@ -172,16 +150,40 @@ print('el momento angular es',L)
 
 #Definimos las curvas de velocidad radial para cada componente
 
-vr1_graph = graph(align='left',title='Curvas de velocidad radial',
+vr1_grafico = graph(align='left',title='Curvas de velocidad radial',
                    xtitle="Fase", ytitle = "Vr", width=700,
                      height = 250, xmin = 0, xmax = 10)
-vr2_graph = graph(align='left',
+vr2_grafico = graph(align='left',
                    xtitle="Fase", ytitle = "Vr", width=700,
                      height = 250, xmin = 0, xmax = 10)
-vr1_curve = gcurve(color=color.magenta,graph=vr1_graph,
+vr1_curva = gcurve(color=color.magenta,graph=vr1_grafico,
                    label='Estrella primaria' if M1>M2 else 'Estrella secundaria')
-vr2_curve = gcurve(color=color.green,graph=vr2_graph,
+vr2_curva = gcurve(color=color.green,graph=vr2_grafico,
                    label='Estrella secundaria' if M1>M2 else 'Estrella primaria')
+
+
+#Creamos un botón para pausar la animación
+corriendo = True
+def Pausa(b): # b = botón
+    global corriendo, recordar_dt, dt
+    corriendo = not corriendo
+    if corriendo:
+        b.texto = "Pausa"
+        dt = recordar_dt
+    else: 
+        b.texto = "Iniciar"
+        recordar_dt = dt
+        dt = 0
+    return
+
+button(text="Pausa", bind=Pausa)
+
+# Función para cerrar la terminal
+def cerrar_terminal():
+    os._exit(0)
+
+# Crear un botón que llama a la función cerrar_terminal
+button(text="Cerrar programa", bind=cerrar_terminal)
 
 # Función para ajustar el rate según el tamaño de la órbita
 def calcular_rate(tamano_orbita):
@@ -189,12 +191,12 @@ def calcular_rate(tamano_orbita):
     factor_rate = 500  # Factor de escala para órbitas grandes
     max_rate = 300  # Limitar el rate máximo para evitar problemas de rendimiento
     
-    rate_value = int(base_rate + factor_rate * tamano_orbita)
-    rate_value = min(rate_value, max_rate)
+    rate_valor = int(base_rate + factor_rate * tamano_orbita)
+    rate_valor = min(rate_valor, max_rate)
     
-    return rate_value
+    return rate_valor
 
-rate_value = calcular_rate(tamano_orbita)
+rate_valor = calcular_rate(tamano_orbita)
 
 
 #Utilizamos el método Euler-Cromer para armar la animación
@@ -208,21 +210,21 @@ dy = 0.01
 dt = 1e3 #paso
 t=0
 while True:
-    rate(rate_value)
-    if running:
+    rate(rate_valor)
+    if corriendo:
         r = est2.pos-est1.pos
         rmag = mag(r)
         rhat = r/rmag
-        F = G * est1.mass * est2.mass * r.hat / mag(r)**2
+        F = G * est1.masa * est2.masa * r.hat / mag(r)**2
         est1.p = est1.p + F*dt
         est2.p = est2.p - F*dt
-        est1.pos = est1.pos + (est1.p/est1.mass) * dt
-        est2.pos = est2.pos + (est2.p/est2.mass) * dt
-        label1.pos = est1.pos + (est1.p/est1.mass) * dt
-        label2.pos = est2.pos + (est2.p/est2.mass) * dt
-        vr1_curve.plot(fase,x)
+        est1.pos = est1.pos + (est1.p/est1.masa) * dt
+        est2.pos = est2.pos + (est2.p/est2.masa) * dt
+        label1.pos = est1.pos + (est1.p/est1.masa) * dt
+        label2.pos = est2.pos + (est2.p/est2.masa) * dt
+        vr1_curva.plot(fase,x)
         x=eq_Vr1(eq_tang(kepler.solve(2*np.pi*fase,e)))+dx
-        vr2_curve.plot(fase,y)
+        vr2_curva.plot(fase,y)
         y=eq_Vr2(eq_tang(kepler.solve(2*np.pi*fase,e)))+dy
         fase=fase+dfase
         t=t+dt
