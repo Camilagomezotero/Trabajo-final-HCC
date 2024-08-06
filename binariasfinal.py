@@ -55,7 +55,7 @@ def eq_tang(E):
     return 2*np.arctan2(np.sqrt((1+e)/(1-e))*np.tan(E/2.),1)
  
 
-#Reemplazamos lo obtenido en la ecuación de velocidad radial para calcular la velocidad radial de cada componente
+#Definimos la ecuación de velocidad radial de cada componente
 def eq_Vr1(var):
     return V0+k1*(e*np.cos(w1)+np.cos(w1+var))
 
@@ -168,10 +168,10 @@ def Pausa(b): # b = botón
     global corriendo, recordar_dt, dt
     corriendo = not corriendo
     if corriendo:
-        b.texto = "Pausa"
+        b.text = "Pausa"
         dt = recordar_dt
     else: 
-        b.texto = "Iniciar"
+        b.text = "Iniciar"
         recordar_dt = dt
         dt = 0
     return
