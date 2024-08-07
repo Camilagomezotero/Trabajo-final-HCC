@@ -11,11 +11,11 @@ def obtener_entrada(instrucciones, valor_predeterminado):
     return float(entrada) if entrada.strip() else valor_predeterminado
 
 #Ingresamos los datos:
-M1 = obtener_entrada('Ingrese la masa en radios solares (valor predeterminado: 3.0)', 3.0) 
-while M1<0: M1 = obtener_entrada('La masa debe ser mayor a cero, ingrese la masa en radios solares nuevamente ', 3.0)
-M2 = obtener_entrada('Ingrese la segunda masa en radios solares (valor predeterminado: 1.0)', 1.0)
-while M2<0: M2 = obtener_entrada('La masa debe ser mayor a cero, ingrese la masa en radios solares nuevamente ', 1.0)
-i = obtener_entrada('Ingrese la inclinación en grados (valor predeterminado: 90.0)', 90.0)
+M1 = obtener_entrada('Ingrese la masa en masas solares (valor predeterminado: 3.0)', 3.0) 
+while M1<0: M1 = obtener_entrada('La masa debe ser mayor a cero, ingrese la masa en masas solares nuevamente ', 3.0)
+M2 = obtener_entrada('Ingrese la segunda masa en masas solares (valor predeterminado: 1.0)', 1.0)
+while M2<0: M2 = obtener_entrada('La masa debe ser mayor a cero, ingrese la masa en masas solares nuevamente ', 1.0)
+i = obtener_entrada('Ingrese la inclinación en grados (valor predeterminado: 90.0)', 90.0) * np.pi / 180  # Convertir a radianes
 P = obtener_entrada('Ingrese el período en años (valor predeterminado: 0.019)', 0.019)
 while P<0: P = obtener_entrada('El periodo debe ser positivo, ingrese el período en años nuevamente ', 0.019)
 e = obtener_entrada('Ingrese la excentricidad (valor predeterminado: 0.5)', 0.5)
