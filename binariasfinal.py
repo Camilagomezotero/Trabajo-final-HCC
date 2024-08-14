@@ -21,7 +21,7 @@ while P<0: P = obtener_entrada('El periodo debe ser positivo, ingrese el períod
 e = obtener_entrada('Ingrese la excentricidad (valor predeterminado: 0.5)', 0.5)
 while e<=0 or e>=1: e = obtener_entrada('La excentricidad debe estar entre 0 y 1, ingrese la excentricidad nuevamente ', 0.5)
 w1 = obtener_entrada('Ingrese el argumento del periastro en grados (valor predeterminado: 229.0)', 229.0) * np.pi / 180  # Convertir a radianes
-V0 = obtener_entrada('Ingrese la velocidad baricentral en km/s (valor predeterminado: -6.91)', -6.91)
+V0 = obtener_entrada('Ingrese la velocidad baricentral en km/s (valor predeterminado: -6.91)', -6.91) *1000 #Convertir a m/s
 
 
 
@@ -151,10 +151,10 @@ print('el momento angular es',L)
 #Definimos las curvas de velocidad radial para cada componente
 
 vr1_grafico = graph(align='left',title='Curvas de velocidad radial',
-                   xtitle="Fase", ytitle = "Vr", width=700,
+                   xtitle="Fase", ytitle = "Vr [m/s]", width=700,
                      height = 250, xmin = 0, xmax = 10)
 vr2_grafico = graph(align='left',
-                   xtitle="Fase", ytitle = "Vr", width=700,
+                   xtitle="Fase", ytitle = "Vr [m/s]", width=700,
                      height = 250, xmin = 0, xmax = 10)
 vr1_curva = gcurve(color=color.magenta,graph=vr1_grafico,
                    label='Estrella primaria' if M1>M2 else 'Estrella secundaria')
