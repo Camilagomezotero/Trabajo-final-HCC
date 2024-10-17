@@ -100,8 +100,8 @@ def radioSegunMasa(m:float):
 def calcular_retain(tamano_orbita):
     base_retain = 1000  # Base del retain para órbitas pequeñas
     factor_retain = 5000  # Factor de escala para órbitas grandes
-    retain_value = int(base_retain + factor_retain * tamano_orbita)
-    return retain_value
+    retain_valor = int(base_retain + factor_retain * tamano_orbita)
+    return retain_valor
 
 # Ajustar el valor de retain según el tamaño de la órbita
 tamano_orbita = a / 1e11  # Escalar el tamaño de la órbita para ajustar retain
