@@ -105,19 +105,19 @@ def calcular_retain(tamano_orbita):
 
 # Ajustar el valor de retain según el tamaño de la órbita
 tamano_orbita = a / 1e11  # Escalar el tamaño de la órbita para ajustar retain
-retain_value = calcular_retain(tamano_orbita)
+retain_valor = calcular_retain(tamano_orbita)
 
 
 
 #Definimos la estrella primaria
 est1 = sphere(canvas=c1,pos=vector(r1,0,0), radius=radioSegunMasa(M1), color=color.magenta, 
-                make_trail=True,  interval=5, retain=retain_value)
+                make_trail=True,  interval=5, retain=retain_valor)
 est1.masa = M1*1.988e30 #Pasamos la masa a kg
 est1.p = vector(0, v1, 0) * est1.masa #Momento lineal primaria
 
 #Definimos la estrella secundaria
 est2 = sphere(canvas=c1,pos=vector(-r2,0,0), radius=radioSegunMasa(M2), color=color.green,
-                make_trail=True, interval=5, retain=retain_value)
+                make_trail=True, interval=5, retain=retain_valor)
 est2.masa = M2*1.988e30 #Pasamos la masa a kg
 est2.p = vector(0, -v2, 0) * est2.masa #Momento lineal secundaria
 
