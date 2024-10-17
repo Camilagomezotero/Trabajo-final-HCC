@@ -81,6 +81,11 @@ L2=sqrt(4*pi**2*a2**4*(1-e**2)/(Pseg**2))
 v2=sqrt((L2**2/(a2*(1-e**2)))*(2/r2-1/a2))
 print('la velocidad inicial de 2 es',v2)
 
+
+
+
+
+
 #Creamos una función para definir el radio según la masa en metros
 def radioSegunMasa(m:float):
     if m<1.66:
@@ -208,7 +213,6 @@ dx = 0.01
 y = 0
 dy = 0.01
 dt = 1e3 #paso
-t=0
 while True:
     rate(rate_valor)
     if corriendo:
@@ -227,5 +231,4 @@ while True:
         vr2_curva.plot(fase,y)
         y=eq_Vr2(eq_tang(kepler.solve(2*np.pi*fase,e)))+dy
         fase=fase+dfase
-        t=t+dt
    
